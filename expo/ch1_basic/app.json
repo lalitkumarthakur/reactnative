@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ch1-basics",
-    "slug": "ch1-basics",
+    "name": "basic",
+    "slug": "basic",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
