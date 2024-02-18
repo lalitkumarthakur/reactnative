@@ -9,6 +9,7 @@ export default function App() {
 		<View style={styles.container}>
 			<Text>Hellow World !</Text>
 			<Card />
+			<Text style={{ fontSize: 22 }}>My name is Nandi</Text>
 		</View>
 	);
 }
