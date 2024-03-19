@@ -16,6 +16,20 @@ Install React native on your Linux System (a lot of difficulties ahead and set $
 
 The dependencies to install are listed below -
 
+1. Install Native wind for tailwind css,
+   1.1 Setup Native wind configuration by reading the docs.
+   1.2 Also you need to manually add those files where native winds should be used.
+
+2. Add React native navigation to your React Native project.
+
+3. React Native responsive screen for responsiveness.
+
+4. Axios to make api requests and more.
+
+5. React-native-community/voice
+
+6. React native TTS - text to speech
+
 ## Step 3: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
