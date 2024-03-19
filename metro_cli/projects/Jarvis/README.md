@@ -8,7 +8,13 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 > **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Install React Native on your Linux system (a lot of difficulties ahead and setup $ANDROID_HOME environment manually and if the emulator does not launch automatically then use this command - emulator -avd emulator name).
+## Step 1: Install React Native on your Linux system
+
+Install React native on your Linux System (a lot of difficulties ahead and setup $ANDROID_HOME environment manually and if the emulator does not launch automatically then use this command - emulator -avd emulator name).
+
+## Step 2: Install Dependencies inside your React Native project folder.
+
+Dependencies to install are listed below -
 
 ## Step 1: Start the Metro Server
 
