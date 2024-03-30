@@ -10,13 +10,27 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ## Step 1: Install React Native on your Linux system
 
-Install React native on your Linux System (a lot of difficulties ahead and setup $ANDROID_HOME environment manually and if the emulator does not launch automatically then use this command - emulator -avd emulator name).
+Install React native on your Linux System (a lot of difficulties ahead and set $ANDROID_HOME environment manually and if the emulator does not launch automatically then use this command - emulator -avd emulator name).
 
 ## Step 2: Install Dependencies inside your React Native project folder.
 
-Dependencies to install are listed below -
+The dependencies to install are listed below -
 
-## Step 1: Start the Metro Server
+1. Install Native wind for tailwind css,
+   1.1 Setup Native wind configuration by reading the docs.
+   1.2 Also you need to manually add those files where native winds should be used.
+
+2. Add React native navigation to your React Native project.
+
+3. React Native responsive screen for responsiveness.
+
+4. Axios to make api requests and more.
+
+5. React-native-community/voice
+
+6. React native TTS - text to speech
+
+## Step 3: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
@@ -30,7 +44,7 @@ npm start
 yarn start
 ```
 
-## Step 2: Start your Application
+## Step 4: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
