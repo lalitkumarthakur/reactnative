@@ -1,64 +1,89 @@
-import {
-	SafeAreaView,
-	Text,
-	View,
-	Image,
-	TextInput,
-	Touchable,
-	TouchableOpacity,
-} from "react-native";
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import {
+	StatusBar,
+	SafeAreaView,
+	View,
+	TextInput,
+	TouchableOpacity,
+	Text,
+	Image,
+} from "react-native";
 import { theme } from "../themes/index";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import { MapPinIcon } from "react-native-heroicons/solid";
 
 export default function HomeScreen() {
-	const [showSearch, toggleSearch] = useState(false);
+	const [showSearch, toggleSearch] = useState(true);
 	const [locations, setLocations] = useState([1, 2, 3]);
+	const handleLocation = (loc) => {
+		console.log("location", loc);
+	};
+
 	return (
-		<View className="flex-1 relative">
+		<View style={{ flex: 1 }} className="relative">
 			<StatusBar style="light" />
 			<Image
-				blurRadius={70}
-				source={require("../../assets/img/abstract slices from left to right in blue color.jpg")}
-				className="absolute h-full w-full"
+				blurRadius={6}
+				source={require("../../assets/img/bro-takes-photos-nd9s9CPxnGc-unsplash.jpg")}
+				style={{ flex: 1 }}
 			/>
 
-			<SafeAreaView className="flex flex-1">
-				{/* search section */}
-				<View style={{ height: "7%" }} className="mx-4 relative z-50">
-					<View
-						className="flex-row justify-end items-center rounded-full"
+			{/* Search section */}
+			<View style={{ position: "absolute", top: 0, left: 0, right: 0 }}>
+				<View
+					style={{
+						flexDirection: "row",
+						justifyContent: "space-between",
+						alignItems: "center",
+						paddingHorizontal: 15,
+						marginTop: 40,
+					}}>
+					{showSearch && (
+						<TextInput
+							placeholder="Search city"
+							placeholderTextColor="lightgray"
+							style={{
+								flex: 1,
+								height: 54,
+								backgroundColor: "rgba(255, 255, 255, 0.2)",
+								borderRadius: 12,
+								paddingLeft: 18,
+								fontSize: 18,
+								color: "white",
+								marginRight: 10,
+							}}
+						/>
+					):null
+					}
+					<TouchableOpacity
+						onPress={() => toggleSearch(!showSearch)}
 						style={{
-							backgroundColor: showSearch ? theme.bgWhite(0.2) : "transparent",
+							backgroundColor: "rgba(255, 255, 255, 0.2)",
+							borderRadius: 12,
+							padding: 16,
 						}}>
-						{showSearch ? (
-							<TextInput
-								placeholder="Search city"
-								placeholderTextColor={"lightgray"}
-								className="pl-6 h-10 pb-1 flex-1 text-base text-white"
-							/>
-						) : null}
-						<TouchableOpacity
-							onPress={() => toggleSearch(!showSearch)}
-							style={{ backgroundColor: theme.bgWhite(0.3) }}
-							className="rounded-full p-3 m-1">
-							<MagnifyingGlassIcon size="25" color="white" />
-						</TouchableOpacity>
-					</View>
-					{locations.length > 0 && showSearch ? (
-						<View className="absolute w-full bg-gray-300 top-16 rounded-3x1">
-							{location.map((loc, index) => {
-								return (
-									<TouchableOpacity key={index}>
-										<Text> London, United Kindom</Text>
-									</TouchableOpacity>
-								);
-							})}
-						</View>
-					) : null}
+						<MagnifyingGlassIcon size={24} color="white" />
+					</TouchableOpacity>
 				</View>
-			</SafeAreaView>
+				{locations.length > 0 && showSearch && (
+					<View style={{ marginTop: 40, paddingHorizontal: 16 }}>
+						{locations.map((loc, index) => (
+							<TouchableOpacity
+								key={index}
+								style={{
+									flexDirection: "row",
+									alignItems: "center",
+									marginBottom: 12,
+								}}>
+								<MapPinIcon size={20} color="grey" />
+								<Text style={{ marginLeft: 10, color: "white", fontSize: 18 }}>
+									London, United Kingdom
+								</Text>
+							</TouchableOpacity>
+						))}
+					</View>
+				)}
+			</View>
 		</View>
 	);
 }
