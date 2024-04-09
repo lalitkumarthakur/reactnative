@@ -20,38 +20,47 @@ export default function HomeScreen() {
 	};
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<View style={{ flex: 1 }} className="relative">
-				<StatusBar style="light" />
-				<Image
-					blurRadius={6}
-					source={require("../../assets/img/bro-takes-photos-nd9s9CPxnGc-unsplash.jpg")}
-					style={{ flex: 1 }}
-				/>
+		<View style={{ flex: 1, position: "relative" }}>
+			<StatusBar style="light" />
+			<Image
+				blurRadius={10}
+				source={require("../../assets/img/bro-takes-photos-nd9s9CPxnGc-unsplash.jpg")}
+				style={{ flex: 1, position: "absolute" }}
+			/>
 
+			<SafeAreaView style={{ display: "flex", flex: 1 }}>
 				{/* Search section */}
-				<View style={{ position: "absolute", top: 0, left: 0, right: 0 }}>
+				<View
+					style={{
+						height: "7%",
+						marginLeft: "16px",
+						marginRight: "16px",
+						position: "relative",
+						zIndex: 50,
+					}}>
 					<View
 						style={{
 							flexDirection: "row",
-							justifyContent: "space-between",
+							justifyContent: "flex-end",
 							alignItems: "center",
-							paddingHorizontal: 15,
-							marginTop: 40,
+							borderRadius: "9999px",
+							// margin: 18,
+							backgroundColor: theme.bgWhite(0.2),
 						}}>
 						{showSearch ? (
 							<TextInput
 								placeholder="Search city"
-								placeholderTextColor="lightgray"
+								placeholderTextColor={"lightgray"}
 								style={{
+									paddingLeft: "24px",
+									height: 10,
 									flex: 1,
-									height: 54,
-									backgroundColor: "rgba(255, 255, 255, 0.2)",
+									// backgroundColor: "rgba(255, 255, 255, 0.2)",
 									borderRadius: 12,
-									paddingLeft: 18,
-									fontSize: 18,
+									fontSize: "16px",
+									lineHeight: "28px",
 									color: "white",
-									marginRight: 10,
+									// marginRight: 10,
 								}}
 							/>
 						) : null}
@@ -96,8 +105,8 @@ export default function HomeScreen() {
 				<View
 					style={{
 						position: "absolute",
-						bottom: "15%", // Adjusted to 10%
-						left: "13%",
+						bottom: "28%", // Adjusted to 10%
+						left: "12%",
 						bottom: "12%",
 						alignItems: "center", // Align items to center
 					}}>
@@ -205,7 +214,7 @@ export default function HomeScreen() {
 						</View>
 					</View>
 				</View>
-			</View>
-		</SafeAreaView>
+			</SafeAreaView>
+		</View>
 	);
 }
