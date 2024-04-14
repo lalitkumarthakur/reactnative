@@ -1,3 +1,3 @@
 export const theme = {
-	bgWhite: (opacity) => "rgba(225,225,225, ${opacity})",
+	bgWhite: (opacity) => "rgba(225,225,226, 0.2))",
 };
