@@ -14,32 +14,49 @@ import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import { CalculatorIcon, MapPinIcon } from "react-native-heroicons/solid";
 import { debounce } from "lodash";
 import { fetchLocations } from "../apis/Weather";
+import { fetchWeatherForecast } from "../apis/Weather";
+import { weatherImages } from "../constants";
 
 
 
 export default function HomeScreen() {
 	const [showSearch, toggleSearch] = useState(false);
 	const [locations, setLocations] = useState([]);
+	const [weather, setWeather] = useState({});
 
 	const handleLocation = (loc) => {
 		console.log("location", loc);
-	};
+		setLocations([]);
+		toggleSearch(false);
+		fetchWeatherForecast({
+			cityName: loc.name,
+			days: '7'
+		}).then(data => {
+			setWeather(data);
+			console.log("got forecast:", data);
+		});
+	}
+
 
 	const handleSearch = value => {
-		//fetch locations
-		if ((value.lenght > 2)) {
+		// //fetch locations
+		if ((value.length > 2)) {
 			fetchLocations({ cityName: value }).then(data => {
-				console.log("got location:", data);
+				setLocations(data);
 			})
 		}
+		// console.log("value", value);
+
 	}
 	const handleTextDebounce = useCallback(debounce(handleSearch, 1200), []);
+
+	const { current, location } = weather;
 	return (
 		<View style={{ flex: 1, position: "relative" }}>
 			<StatusBar style="light" />
 			<Image
 				blurRadius={10}
-				source={require("../../assets/img/bro-takes-photos-nd9s9CPxnGc-unsplash.jpg")}
+				source={require("../assets/img/bro-takes-photos-nd9s9CPxnGc-unsplash.jpg")}
 				style={{ flex: 1, position: "absolute" }}
 			/>
 
@@ -74,7 +91,7 @@ export default function HomeScreen() {
 									flex: 1,
 									borderRadius: 12,
 									fontSize: 17,
-									color: "black",
+									color: "white",
 								}}
 							/>
 						) : null}
@@ -119,7 +136,7 @@ export default function HomeScreen() {
 										<MapPinIcon size={20} color="grey" />
 										<Text
 											style={{ marginLeft: 8, color: "white", fontSize: 19 }}>
-											London, United Kingdom
+											{loc?.name}, {loc?.country}
 										</Text>
 									</TouchableOpacity>
 								);
@@ -147,14 +164,14 @@ export default function HomeScreen() {
 							fontSize: 28,
 							fontWeight: "bold",
 						}}>
-						London,{" "}
+						{location?.name},{" "}
 						<Text
 							style={{
 								fontSize: 24,
 								fontWeight: "600",
 								color: "rgba(225,225,300, 0.6)",
 							}}>
-							United Kingdom
+							{location?.country}
 						</Text>
 					</Text>
 
@@ -167,7 +184,7 @@ export default function HomeScreen() {
 							justifyContent: "center",
 						}}>
 						<Image
-							source={require("../../assets/icons/theme1-3d/WeatherIcon-1-39.png")}
+							source={weatherImages[current?.condition?.text]}
 							style={{ width: 110, height: 90 }}
 						/>
 					</View>
@@ -184,7 +201,7 @@ export default function HomeScreen() {
 								justifyContent: "center",
 								display: "flex",
 							}}>
-							23&#176;
+							{current?.temp_c}&#176;
 						</Text>
 						<Text
 							style={{
@@ -193,7 +210,7 @@ export default function HomeScreen() {
 								fontSize: 17,
 								marginBottom: 35,
 							}}>
-							Partly Cloudy
+							{current?.condition?.text}
 						</Text>
 					</View>
 
@@ -206,7 +223,8 @@ export default function HomeScreen() {
 						}}>
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<Image
-								source={require("../../assets/icons/theme1-3d/WeatherIcon-1-6.png")}
+								// source={weatherImages[current?.condition?.text]}
+								source={{ uri: "https:" + current?.condition.icon }}
 								style={{ width: 24, height: 24, marginRight: 8 }}
 							/>
 							<Text
@@ -222,7 +240,7 @@ export default function HomeScreen() {
 						<View style={{ width: 28 }} />
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<Image
-								source={require("../../assets/icons/theme1-3d/WeatherIcon-1-17.png")}
+								source={weatherImages[current?.condition?.text]}
 								style={{ width: 20, height: 30, marginRight: 8 }}
 							/>
 							<Text
@@ -238,7 +256,7 @@ export default function HomeScreen() {
 						<View style={{ width: 28 }} />
 						<View style={{ flexDirection: "row", alignItems: "center" }}>
 							<Image
-								source={require("../../assets/icons/theme1-3d/WeatherIcon-1-22.png")}
+								source={weatherImages[current?.condition?.text]}
 								style={{ width: 24, height: 24, marginRight: 8 }}
 							/>
 							<Text
@@ -282,7 +300,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Monday</Text>
@@ -303,7 +321,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Tuesday</Text>
@@ -324,7 +342,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Wednesday</Text>
@@ -345,7 +363,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Thursday</Text>
@@ -366,7 +384,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Friday</Text>
@@ -387,7 +405,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Saturday</Text>
@@ -408,7 +426,7 @@ export default function HomeScreen() {
 									marginHorizontal: 5,
 								}}>
 								<Image
-									source={require("../../assets/icons/theme1-3d/WeatherIcon-1-52.png")}
+									source={weatherImages[current?.condition?.text]}
 									style={{ height: 40, width: 40, marginBottom: 5 }}
 								/>
 								<Text style={{ color: "white" }}>Sunday</Text>
