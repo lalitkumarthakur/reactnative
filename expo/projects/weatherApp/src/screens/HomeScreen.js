@@ -15,7 +15,7 @@ import { CalculatorIcon, MapPinIcon } from "react-native-heroicons/solid";
 import { debounce } from "lodash";
 import { fetchLocations } from "../apis/Weather";
 import { fetchWeatherForecast } from "../apis/Weather";
-import { weatherImages } from "../constants";
+import { weatherImages } from "../constants/index";
 
 
 
@@ -233,7 +233,7 @@ export default function HomeScreen() {
 									fontWeight: "bold",
 									fontSize: 16,
 								}}>
-								22km
+								{current?.wind_kph}km
 							</Text>
 						</View>
 						{/* Add an empty view to create space */}
@@ -249,7 +249,7 @@ export default function HomeScreen() {
 									fontWeight: "bold",
 									fontSize: 16,
 								}}>
-								24%
+								{current?.humidity}%
 							</Text>
 						</View>
 						{/* Add an empty view to create space */}
@@ -288,153 +288,34 @@ export default function HomeScreen() {
 							horizontal
 							cpntentContainerStyle={{ paddingHorizontal: 15 }}
 							showsHorizontalScrollIndicator={false}>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Monday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									13&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Tuesday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									12&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Wednesday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									0&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Thursday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									26&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Friday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									18&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Saturday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									11&#176;
-								</Text>
-							</View>
-							<View
-								style={{
-									backgroundColor: theme.bgWhite(0.15),
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: 110,
-									height: 145,
-									borderRadius: 12,
-									marginHorizontal: 5,
-								}}>
-								<Image
-									source={weatherImages[current?.condition?.text]}
-									style={{ height: 40, width: 40, marginBottom: 5 }}
-								/>
-								<Text style={{ color: "white" }}>Sunday</Text>
-								<Text
-									style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
-									3&#176;
-								</Text>
-							</View>
+							{
+								weather?.forecast?.forecastday?.map((item, index) => {
+									return (
+										<View
+											key={index}
+											style={{
+												backgroundColor: theme.bgWhite(0.15),
+												display: "flex",
+												justifyContent: "center",
+												alignItems: "center",
+												width: 110,
+												height: 145,
+												borderRadius: 12,
+												marginHorizontal: 5,
+											}}>
+											<Image
+												source={weatherImages[item?.day?.condition?.text]}
+												style={{ height: 40, width: 40, marginBottom: 5 }}
+											/>
+											<Text style={{ color: "white" }}>{item.date}</Text>
+											<Text
+												style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
+												{item?.day?.avgtemp_c}&#176;
+											</Text>
+										</View>
+									)
+								})
+							}
 						</ScrollView>
 					</View>
 				</View>
